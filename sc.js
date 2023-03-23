@@ -1,10 +1,10 @@
 $(document).ready(function () {
 
   function addCommand(key = '', val = '') {
-    $("#commands").append(`
+    $("#commands").prepend(`
     <div style="display: flex;" class="text-black mb-3">
-    <input value="${key}" name="command[]" style="margin-right: 5px;" class="input" autocomplete="off" spellcheck="false" placeholder="Command"/>
-    <input value="${val}" name="response[]" class="input" autocomplete="off" spellcheck="false" placeholder="Response"/>
+    <input value="${key}" name="command[]" style="margin-right: 5px;" class="input" autocomplete="off" spellcheck="false" placeholder="!example"/>
+    <input value="${val}" name="response[]" class="input" autocomplete="off" spellcheck="false" placeholder="This is the command response"/>
     <button class="remove btn btn-secondary">X</button>
     </div>
    `);
@@ -64,23 +64,37 @@ $(document).ready(function () {
   }
 
 
-  setTimeout(() => {
-    $('.grid-cols-3').append(`
-    <div id="openwidow" style="cursor: pointer;" class="bg-secondary-light hover:bg-secondary-light text-white cursor-default flex h-24 cursor-pointer flex-col justify-between rounded-sm bg-secondary p-1.5 text-white transition-colors hover:bg-secondary-lighter">
-    <img style="width: 20px; height: 20px;" src="https://www.svgrepo.com/show/407351/robot.svg"/>
-    <span class="text-sm font-semibold leading-tight">Chat bot</span>
- </div>
-  `);
+  var added = false;
 
-    $("#openwidow").click(function () {
-      openWidow();
-    });
+  setInterval(() => {
 
-    $("#closewidow").click(function () {
-      closeWidow();
-    });
+    var router = $(".router-link-active").attr('href');
 
-  }, 900);
+    if (router !== "/dashboard/stream") added = false;
+
+    if (router === "/dashboard/stream" && added == false) {
+      setTimeout(() => {
+        $('.grid-cols-3').append(`
+        <div id="openwidow" style="cursor: pointer;" class="bg-secondary-light hover:bg-secondary-light text-white cursor-default flex h-24 cursor-pointer flex-col justify-between rounded-sm bg-secondary p-1.5 text-white transition-colors hover:bg-secondary-lighter">
+        <img style="width: 20px; height: 20px;" src="https://www.svgrepo.com/show/407351/robot.svg"/>
+        <span class="text-sm font-semibold leading-tight">Chat bot</span>
+        </div>
+      `);
+
+        $("#openwidow").click(function () {
+          openWidow();
+        });
+
+        $("#closewidow").click(function () {
+          closeWidow();
+        });
+
+      }, 1000);
+
+      added = true;
+
+    }
+  }, 1000);
 
 
   $('html').prepend(`
@@ -104,17 +118,19 @@ $(document).ready(function () {
                       <input id="channel" style="width: 100%;" class="input !rounded-l-none pl-0" autocomplete="off" spellcheck="false" placeholder="Channel name"/>
                       </div>
 
-                      <h3 class="mb-3 font-bold">Custom commands</h3>
+
+                      <div class="mt-10 text-center mb-5">
+                        <button id="add" class="btn btn-primary">Add command</button>
+                        <a href="https://discord.gg/hBBYmN6aM8" target="_blank" class="btn btn-secondary">Got a issue?</a>
+                        <a href="https://chrome.google.com/webstore/detail/kickcom-chat-bot/lamolejjobopclafoadpcjmekdchmoef?hl=en" target="_blank" class="btn btn-secondary">Rate this extension</a>
+                     </div>
+
+                      <h3 class="mb-3 font-bold">Commands</h3>
                      
                         <div id="commands"></div>
                     </div>
                   </div>
 
-                  <div class="mt-10 text-center">
-                    <button id="add" class="btn btn-primary">Add command</button>
-                    <a href="https://discord.gg/hBBYmN6aM8" target="_blank" class="btn btn-secondary">Got a issue?</a>
-                    <a href="https://chrome.google.com/webstore/detail/kickcom-chat-bot/lamolejjobopclafoadpcjmekdchmoef?hl=en" target="_blank" class="btn btn-secondary">Rate this extension</a>
-                  </div>
 
                   <div class="text-right mt-5 text-white">
                   Developed by <b><a href="https://twitter.com/ofcdeex" target="_blank">@ofcdeex</a></b><br>
