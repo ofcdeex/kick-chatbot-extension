@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  var opened = false;
 
   function addCommand(key = '', val = '') {
     $("#commands").append(`
@@ -53,6 +52,14 @@ $(document).ready(function () {
   function closeWidow() {
     $("#mdxbot").hide();
 
+    if ($("#channel").val().length > 0) {
+      var getLocalChannel = localStorage.getItem('mdxchannel');
+      if (getLocalChannel !== $("#channel").val()) {
+        localStorage.setItem('mdxchannel', $("#channel").val());
+        location.reload();
+      }
+    }
+
     updateCommands();
   }
 
@@ -69,7 +76,7 @@ $(document).ready(function () {
       openWidow();
     });
 
-    $("#closewidow").click(function(){
+    $("#closewidow").click(function () {
       closeWidow();
     });
 
@@ -83,7 +90,7 @@ $(document).ready(function () {
       <div id="headlessui-dialog-overlay-17" aria-hidden="true" class="fixed inset-0 bg-black/60 transition-opacity"></div>
       <div class="absolute left-1/2 inline-block h-screen w-screen -translate-x-1/2 text-left">
         <div class="flex h-screen w-screen overflow-y-auto overflow-x-hidden p-3">
-          <div style="width: 750px;" class="my-auto mx-auto w-full lg:w-3/12">
+          <div style="width: 750px; height: 750px;" class="my-auto mx-auto w-full lg:w-3/12">
             <div class="relative inline-block w-full text-left">
              <button id="closewidow" type="button" class="btn absolute top-3 right-3 z-50 focus:ring-0"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="text-gray-400"><path d="M11.6547 1.75473L10.2447 0.344727L5.99973 4.58473L1.75473 0.344727L0.344727 1.75473L4.58473 5.99973L0.344727 10.2447L1.75473 11.6547L5.99973 7.41473L10.2447 11.6547L11.6547 10.2447L7.41473 5.99973L11.6547 1.75473Z"></path></svg></button>
               <div class="rounded bg-secondary shadow overflow-hidden">
@@ -92,9 +99,9 @@ $(document).ready(function () {
                     <div class="text-white">
                       <h1 class="mb-5 mt-1 font-bold">MDX KICK CHAT BOT</h1>
                       
-                      <div class="mb-5">
-                      <input id="channel" style="width: 88.5%;" class="input" autocomplete="off" spellcheck="false" placeholder="Channel name"/>
-                      <button id="updateuser" class="btn btn-primary">Update</button>
+                      <div class="mb-5 flex">
+                      <div class="w-[126px] shrink-0 rounded-l bg-secondary-lighter p-2.5 text-sm font-bold text-gray-400 md:w-[152px]">Channel name</div>
+                      <input id="channel" style="width: 100%;" class="input !rounded-l-none pl-0" autocomplete="off" spellcheck="false" placeholder="Channel name"/>
                       </div>
 
                       <h3 class="mb-3 font-bold">Custom commands</h3>
@@ -124,15 +131,6 @@ $(document).ready(function () {
   </div>
   </div>
     `);
-
-  $("#updateuser").click(function () {
-    if ($("#channel").val().length > 0) {
-      localStorage.setItem('mdxchannel', $("#channel").val());
-    };
-
-    updateCommands();
-    location.reload();
-  });
 
   if (localStorage.getItem('mdxchannel')) {
     $("#channel").attr('value', localStorage.getItem('mdxchannel'));

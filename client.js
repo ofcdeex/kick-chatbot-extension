@@ -33,8 +33,17 @@ function connect() {
 
             }
         },
-        error: function (request, error) {
-            alert("Kick chat bot error: " + error);
+        error: function (xhr, ajaxOptions, thrownError) {
+            switch (xhr.status) {
+                case 404:
+                    alert('Chatbot: channel not found.');
+                    localStorage.setItem('mdxchannel', '');
+                    location.reload();
+                    break;
+                default:
+                    alert('Chatbot error.');
+                    break;
+            }
         }
     });
 
