@@ -1,7 +1,7 @@
 {
   "name": "Kick.com Chat Bot",
   "description": "Chatbot extension for Kick with custom commands and soon timer and giveaways.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "manifest_version": 3,
   "permissions": [
     "storage"
@@ -21,9 +21,11 @@
         "utils/jquery-3.6.4.min.js",
         "utils/jquery.loadscript.min.js",
         "core/client.js",
+        "core/global.js",
         "ui/main.js",
-        "ui/customCommands.js",
-        "plugins/customCommands.js"
+        "plugins/customCommands.js",
+        "ui/ui.js",
+        "plugins/timerMessages.js"
       ],
       "all_frames": false
     }

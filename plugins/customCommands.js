@@ -1,8 +1,8 @@
-$(document).ready(function () {
+function customCommands_Plugin() {
 
   function addCommand(key = '', val = '') {
     $("#commands").prepend(`
-    <div style="display: flex;" class="text-black mb-3">
+    <div style="display: flex;" class="text-black mb-2">
     <input value="${key}" name="command[]" style="margin-right: 5px;" class="input" autocomplete="off" spellcheck="false" placeholder="!example"/>
     <input value="${val}" name="response[]" class="input" autocomplete="off" spellcheck="false" placeholder="This is the command response"/>
     <button class="remove btn btn-secondary">X</button>
@@ -33,22 +33,6 @@ $(document).ready(function () {
     localStorage.setItem('mdxcommands', JSON.stringify(struct));
   }
 
-
-  function openWidow() {
-    var commands = JSON.parse(localStorage.getItem('mdxcommands'));
-    $("#commands").html('');
-
-    $.each(commands, (key, val) => {
-      addCommand(key, val);
-    });
-
-    $(".remove").click(function () {
-      $(this).parent().remove();
-    });
-
-    $("#mdxbot").show();
-  }
-
   function closeWidow() {
     $("#mdxbot").hide();
 
@@ -63,15 +47,13 @@ $(document).ready(function () {
     updateCommands();
   }
 
-  var added = false;
-
   setInterval(() => {
 
     var router = $(".router-link-active").attr('href');
 
-    if (router !== "/dashboard/stream") added = false;
+    if (router !== "/dashboard/stream") chatBotButton_Added = false;
 
-    if (router === "/dashboard/stream" && added == false) {
+    if (router === "/dashboard/stream" && chatBotButton_Added == false) {
       setTimeout(() => {
         $('.grid-cols-3').append(`
         <div id="openwidow" style="cursor: pointer;" class="bg-secondary-light hover:bg-secondary-light text-white cursor-default flex h-24 cursor-pointer flex-col justify-between rounded-sm bg-secondary p-1.5 text-white transition-colors hover:bg-secondary-lighter">
@@ -81,7 +63,7 @@ $(document).ready(function () {
       `);
 
         $("#openwidow").click(function () {
-          openWidow();
+          $("#mdxbot").show();
         });
 
         $("#closewidow").click(function () {
@@ -90,7 +72,7 @@ $(document).ready(function () {
 
       }, 1000);
 
-      added = true;
+      chatBotButton_Added = true;
 
     }
   }, 1000);
@@ -105,4 +87,12 @@ $(document).ready(function () {
     addCommand();
   });
 
-});
+  var commands = JSON.parse(localStorage.getItem('mdxcommands'));
+  $("#commands").html('');
+
+  $.each(commands, (key, val) => {
+    addCommand(key, val);
+  });
+
+  
+}
