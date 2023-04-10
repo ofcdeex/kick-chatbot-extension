@@ -3,6 +3,7 @@ var current_page = 1;
 var max_pages = 2;
 var min_pages = 1;
 
+connect();
 
 function nextPage() {
     if (current_page < max_pages) {

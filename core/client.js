@@ -5,7 +5,6 @@ function connect() {
         $("button:contains(Chat)").click();
     }
 
-
     $.ajax({
         url: "https://kick.com/api/v1/channels/" + localStorage.getItem('mdxchannel'),
         type: "GET",

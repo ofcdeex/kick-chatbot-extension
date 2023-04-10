@@ -22,7 +22,7 @@ $(document).ready(function () {
                       <button id="next" class="btn btn-primary">></button>
                       <br><br>
                       Developed by <b><a href="https://twitter.com/ofcdeex" target="_blank">@ofcdeex</a></b><br>
-                      Version: 1.0.4
+                      Version: 1.0.3
             </div>
 
           </div>
@@ -42,6 +42,52 @@ $(document).ready(function () {
     previousPage();
   });
 
+  $("#closewidow").click(function () {
+    $("#mdxbot").hide();
+
+    if (current_page === 1) customCommands.updateCommands();
+    if (current_page === 2) timerMessage.updateMessages();
+
+    timerMessage.startAutomessage();
+
+
+    if ($("#channel").val().length > 0) {
+      var getLocalChannel = localStorage.getItem('mdxchannel');
+      if (getLocalChannel !== $("#channel").val()) {
+        localStorage.setItem('mdxchannel', $("#channel").val());
+        location.reload();
+      }
+    }
+
+  });
+
+
+  setInterval(() => {
+
+    var router = $(".router-link-active").attr('href');
+
+    if (router !== "/dashboard/stream") chatBotButton_Added = false;
+
+    if (router === "/dashboard/stream" && chatBotButton_Added == false) {
+      setTimeout(() => {
+        $('.grid-cols-3').append(`
+        <div id="openwidow" style="cursor: pointer;" class="bg-secondary-light hover:bg-secondary-light text-white cursor-default flex h-24 cursor-pointer flex-col justify-between rounded-sm bg-secondary p-1.5 text-white transition-colors hover:bg-secondary-lighter">
+        <img style="width: 20px; height: 20px;" src="https://www.svgrepo.com/show/407351/robot.svg"/>
+        <span class="text-sm font-semibold leading-tight">Chat bot</span>
+        </div>
+      `);
+
+      }, 1000);
+
+      chatBotButton_Added = true;
+
+    }
+
+    $("#openwidow").click(function () {
+      $("#mdxbot").show();
+    });
+
+  }, 600);
 
   refreshUI();
 

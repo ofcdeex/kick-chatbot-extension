@@ -1,5 +1,7 @@
 function refreshUI() {
   if (current_page == 1) {
+    timerMessage.updateMessages();
+
     $("#main").html(`
       <div class="text-center">
                           <div class="text-white">
@@ -27,12 +29,16 @@ function refreshUI() {
                     </div>
       `);
 
-    customCommands_Plugin();
+
+
+    customCommands.Load();
 
   }
 
 
   if (current_page == 2) {
+    customCommands.updateCommands();
+
     $("#main").html(`
     <div class="text-center">
                           <div class="text-white">
@@ -52,7 +58,7 @@ function refreshUI() {
                     </div>
     `);
 
-    timerMessags_plugin();
+    timerMessage.Load();
 
   }
 
