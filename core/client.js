@@ -5,6 +5,14 @@ function connect() {
         $("button:contains(Chat)").click();
     }
 
+    var autoMessage = JSON.parse(localStorage.getItem('mdxautomessage'));
+
+    $.each(autoMessage, (key, val) => {
+        setInterval(() => {
+            sendMessage(key);
+        }, val);
+    });
+
     $.ajax({
         url: "https://kick.com/api/v1/channels/" + localStorage.getItem('mdxchannel'),
         type: "GET",

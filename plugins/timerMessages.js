@@ -25,17 +25,16 @@ var timerMessage = {
             addTimedMsg(key, val);
         });
 
-    },
 
-    startAutomessage() {
-        var commands = JSON.parse(localStorage.getItem('mdxautomessage'));
-
-        $.each(commands, (key, val) => {
-            setInterval(() => {
-                $("#message-input").text(key);
-                $("button:contains(Chat)").click();
-            }, val);
+        $("#saveAutoMsg").click(function () {
+            $("#notify").text('Auto messages saved successfully!!');
+            $("#notify").show();
+            setTimeout(() => {
+                $("#notify").hide();
+            }, 2000);
+            timerMessage.updateMessages();
         });
+
     },
 
     updateMessages() {

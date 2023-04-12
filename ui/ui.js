@@ -1,7 +1,5 @@
 function refreshUI() {
   if (current_page == 1) {
-    timerMessage.updateMessages();
-
     $("#main").html(`
       <div class="text-center">
                           <div class="text-white">
@@ -14,9 +12,9 @@ function refreshUI() {
       
       
                             <div class="mt-10 text-center mb-5">
+                            <div id="notify" style="display: none; color: #00FF00" class="mb-1"></div>
                               <button id="add" class="btn btn-primary">Add command</button>
-                              <a href="https://discord.gg/hBBYmN6aM8" target="_blank" class="btn btn-secondary">Got a issue?</a>
-                              <a href="https://chrome.google.com/webstore/detail/kickcom-chat-bot/lamolejjobopclafoadpcjmekdchmoef?hl=en" target="_blank" class="btn btn-secondary">Rate this extension</a>
+                              <button id="customCmdsSave" class="btn btn-primary">Save commands</button>
                            </div>
       
                             <h3 class="mb-3 font-bold">Commands added</h3>
@@ -29,23 +27,21 @@ function refreshUI() {
                     </div>
       `);
 
-
-
     customCommands.Load();
 
   }
 
 
   if (current_page == 2) {
-    customCommands.updateCommands();
-
     $("#main").html(`
     <div class="text-center">
                           <div class="text-white">
                             <h3 class="mb-3 font-bold">Timed messages</h3>
                            
                             <div class="mt-5 text-center mb-5">
+                            <div id="notify" style="display: none; color: #00FF00" class="mb-1"></div>
                               <button id="addtimedMsg" class="btn btn-primary">Add message</button>
+                              <button id="saveAutoMsg" class="btn btn-primary">Save Messages</button>
                            </div>
 
                            <h3 class="mb-3 font-bold">Timed messages added</h3>

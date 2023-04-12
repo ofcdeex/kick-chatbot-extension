@@ -19,7 +19,6 @@
       "run_at": "document_end",
       "js": [
         "utils/jquery-3.6.4.min.js",
-        "utils/jquery.loadscript.min.js",
         "core/client.js",
         "core/global.js",
         "plugins/customCommands.js",

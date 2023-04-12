@@ -1,4 +1,14 @@
 var customCommands = {
+
+  updateChannel() {
+    if ($("#channel").val().length > 0) {
+      var getLocalChannel = localStorage.getItem('mdxchannel');
+      if (getLocalChannel !== $("#channel").val()) {
+        localStorage.setItem('mdxchannel', $("#channel").val());
+      }
+    }
+  },
+
   updateCommands() {
     var commands = $('input[name="command[]"]').map(function () {
       return this.value;
@@ -47,5 +57,16 @@ var customCommands = {
     $.each(commands, (key, val) => {
       addCommand(key, val);
     });
+
+
+    $("#customCmdsSave").click(function () {
+      $("#notify").text('Commands saved successfully!');
+      $("#notify").show();
+      setTimeout(() => {
+        $("#notify").hide();
+      }, 2000);
+      customCommands.updateCommands();
+    });
+
   }
 };

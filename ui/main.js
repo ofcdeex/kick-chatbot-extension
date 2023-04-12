@@ -20,9 +20,12 @@ $(document).ready(function () {
             <div class="p-5 text-right text-white">
                       <button id="previous" class="btn btn-primary"><</button>
                       <button id="next" class="btn btn-primary">></button>
-                      <br><br>
-                      Developed by <b><a href="https://twitter.com/ofcdeex" target="_blank">@ofcdeex</a></b><br>
-                      Version: 1.0.3
+            </div>
+
+            <div class="text-center text-white mb-5">
+            Developed by <b><a href="https://twitter.com/ofcdeex" target="_blank">@ofcdeex</a></b><br>
+            Support: <b>https://mdx.gg/discord</b><br>
+            Version: 1.0.3
             </div>
 
           </div>
@@ -35,6 +38,7 @@ $(document).ready(function () {
 
 
   $("#next").click(function () {
+    customCommands.updateChannel();
     nextPage();
   });
 
@@ -45,21 +49,16 @@ $(document).ready(function () {
   $("#closewidow").click(function () {
     $("#mdxbot").hide();
 
-    if (current_page === 1) customCommands.updateCommands();
-    if (current_page === 2) timerMessage.updateMessages();
 
-    timerMessage.startAutomessage();
+    try {
+      customCommands.updateChannel();
+    } catch {
 
-
-    if ($("#channel").val().length > 0) {
-      var getLocalChannel = localStorage.getItem('mdxchannel');
-      if (getLocalChannel !== $("#channel").val()) {
-        localStorage.setItem('mdxchannel', $("#channel").val());
-        location.reload();
-      }
     }
 
+    location.reload();
   });
+
 
 
   setInterval(() => {
