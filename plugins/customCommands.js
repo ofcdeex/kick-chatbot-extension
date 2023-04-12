@@ -1,11 +1,15 @@
 var customCommands = {
 
   updateChannel() {
-    if ($("#channel").val().length > 0) {
-      var getLocalChannel = localStorage.getItem('mdxchannel');
-      if (getLocalChannel !== $("#channel").val()) {
-        localStorage.setItem('mdxchannel', $("#channel").val());
+    try {
+      if ($("#channel").val().length > 0) {
+        var getLocalChannel = localStorage.getItem('mdxchannel');
+        if (getLocalChannel !== $("#channel").val()) {
+          localStorage.setItem('mdxchannel', $("#channel").val());
+        }
       }
+    } catch {
+
     }
   },
 
